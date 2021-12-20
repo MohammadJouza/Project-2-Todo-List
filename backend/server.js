@@ -11,6 +11,8 @@ app.get("/", (req, res) => {
   res.json("GET / is Working");
 });
 
+// CRUD: Create, Read, Update, Delete
+
 app.get("/tasks", (req, res) => {
   Todo.find({}, (err, data) => {
     if (err) {
@@ -20,6 +22,43 @@ app.get("/tasks", (req, res) => {
     }
   });
 });
+
+//              ?key=value&key=value
+app.get("/filter", (req, res) => {
+  console.log(req.query);
+  Todo.find({ isCompleted: req.query.isCompleted }, (err, data) => {
+    if (err) {
+      console.log("ERR", err);
+    } else {
+      // console.log(data);
+      res.json(data);
+    }
+  });
+});
+/*
+the up endpoint is replace to these two
+app.get("/completed", (req, res) => {
+  Todo.find({ isCompleted: true }, (err, data) => {
+    if (err) {
+      console.log("ERR", err);
+    } else {
+      // console.log(data);
+      res.json(data);
+    }
+  });
+});
+
+app.get("/not_completed", (req, res) => {
+  Todo.find({ isCompleted: false }, (err, data) => {
+    if (err) {
+      console.log("ERR", err);
+    } else {
+      // console.log(data);
+      res.json(data);
+    }
+  });
+});
+*/
 
 app.post("/tasks", (req, res) => {
   // console.log('25:',req.body);
@@ -49,14 +88,13 @@ app.delete("/tasks/:id", (req, res) => {
 
 app.put("/tasks/:id", (req, res) => {
   // console.log("37:", req.params.id);
-
   Todo.updateOne(
     { _id: req.params.id },
     { title: req.body.newTitle },
     (err, updateObj) => {
       if (err) {
-        console.log("ERROR: ", err);
-        res.status(400).json(err)
+        // console.log("ERROR: ", err);
+        res.status(400).json(err);
       } else {
         console.log(updateObj);
         updateObj.modifiedCount === 1
