@@ -4,6 +4,7 @@ const app = express();
 
 const db = require("./db");
 const Todo = require("./todo");
+const User = require("./user");
 // console.log(Todo);
 
 app.use(express.json());
@@ -134,6 +135,48 @@ app.put("/tasks/:id/:isCompleted", (req, res) => {
       }
     }
   );
+});
+
+// USER
+app.post("/users/register", (req, res) => {
+  User.create(req.body, (err, newUser) => {
+    if (err) {
+      // console.log("ERROR: ", err);
+      res.status(400).json({ message: "This email already taken" });
+    } else {
+      // res.status(201).json(newUser);
+      res.status(201).json({ message: "Create New User Successfully" });
+    }
+  });
+});
+
+app.post("/users/login", (req, res) => {
+  User.find({ email: req.body.email }, (err, arrUserFound) => {
+    if (err) {
+      console.log("ERROR: ", err);
+    } else {
+      // console.log(arrUserFound);
+      if (arrUserFound.length === 1) {
+        // we found the user
+        if (req.body.password === arrUserFound[0].password) {
+          // password correct
+          res.status(200).json({
+            message: "Login Successfully",
+            username: arrUserFound[0].username,
+          });
+        } else {
+          // password incorrect
+          res.status(400).json({
+            message: "Wrong password",
+          });
+        }
+      } else {
+        res.status(404).json({
+          message: "The email entered is not registered",
+        });
+      }
+    }
+  });
 });
 
 app.listen(5000, () => {
