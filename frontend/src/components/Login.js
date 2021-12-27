@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Login(props) {
   const [email, setEmail] = useState("m.jouza3@gmail.com");
   const [password, setPassword] = useState("1234");
 
   const loginFunc = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const userInfo = {
       // "email":email
       email,
@@ -16,6 +17,8 @@ export default function Login() {
       .post(`http://localhost:5000/users/login`, userInfo)
       .then((response) => {
         console.log("DATA: ", response.data);
+        props.setIsLoggedIn(true);
+        props.setUsername(response.data.username);
       })
       .catch((err) => {
         console.log("ERR: ", err);
@@ -46,6 +49,7 @@ export default function Login() {
         />
         <br />
         <input type="submit" value="Login" onClick={loginFunc} />
+        <Link to="/Register">Don't Have An Account?</Link>
       </form>
     </div>
   );
