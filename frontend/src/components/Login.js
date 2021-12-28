@@ -48,7 +48,8 @@ export default function Login(props) {
           placeholder="Write password here ..."
         />
         <br />
-        <input type="submit" value="Login" onClick={loginFunc} />
+        {/* <button type="button" class="btn btn-primary">Primary</button> */}
+        <input type="submit" value="Login" onClick={loginFunc} className="btn btn-primary" />
         <Link to="/Register">Don't Have An Account?</Link>
       </form>
     </div>

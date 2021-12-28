@@ -13,6 +13,7 @@ export default function App() {
   const [tasks, setTasks] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+
   useEffect(() => {
     getData();
   }, []);
@@ -107,6 +108,11 @@ export default function App() {
         console.log("ERR: ", err);
       });
   };
+
+  const logoutFunc = () => {
+    setIsLoggedIn(false);
+    setUsername("");
+  };
   const mapOverTasks = tasks.map((taskObj, i) => (
     <Todo
       key={taskObj._id}
@@ -120,13 +126,46 @@ export default function App() {
       <p>APP</p>
       <p>Name: {username}</p>
 
-      <nav>
-        <Link to="/home">Home</Link> {" | "}
-        <Link to="/login">Login</Link> {" | "}
-        <Link to="/register">Register</Link>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            Todos
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <Link to="/home" className="nav-link">
+                  Home
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link to="/login" className="nav-link">
+                  Login
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link to="/register" className="nav-link">
+                  Register
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
-      <br />
 
+      <br />
+      <button onClick={logoutFunc}>Logout</button>
       <Routes>
         <Route
           path="/home"
