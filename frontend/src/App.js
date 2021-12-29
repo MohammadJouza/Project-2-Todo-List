@@ -122,11 +122,11 @@ export default function App() {
     />
   ));
   return (
-    <div className="App">
-      <p>APP</p>
+    <div className="">
+      {/* <p>APP</p> */}
       <p>Name: {username}</p>
 
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light m-3">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
             Todos
@@ -165,31 +165,54 @@ export default function App() {
       </nav>
 
       <br />
-      <button onClick={logoutFunc}>Logout</button>
+      <div className="m-3 text-center">
+        <button onClick={logoutFunc} class="btn btn-info m-2">
+          Logout
+        </button>
+
+        <button
+          type="button"
+          class="btn btn btn-dark"
+          data-bs-toggle="popover"
+          title="Todo List"
+          data-bs-content="Welcome to Todo List Web Application"
+        >
+          {username ? "Welcome " + username : "Please Login"}{" "}
+        </button>
+      </div>
       <Routes>
         <Route
           path="/home"
           element={
-            <div className="Home">
-              {/* click on button should bring all Data */}
-              <button onClick={getData}>GET TASKS</button>
-              <button onClick={deleteTasks}>DELETE Completed tasks </button>
-              <button
-                onClick={() => {
-                  filterData(true);
-                }}
-              >
-                GET DONE
-              </button>
-              <button
-                onClick={() => {
-                  filterData(false);
-                }}
-              >
-                GET PENDING
-              </button>
+            <div className="Home m-3">
+              <div className="Home mb-3 text-center">
+                {/* click on button should bring all Data */}
+                <button onClick={getData} class="btn btn-primary m-2">
+                  GET TASKS
+                </button>
+                <button onClick={deleteTasks} class="btn btn-danger m-2">
+                  DELETE Completed Tasks{" "}
+                </button>
+                <button
+                  onClick={() => {
+                    filterData(true);
+                  }}
+                  class="btn btn-outline-success m-2"
+                >
+                  GET DONE
+                </button>
+                <button
+                  onClick={() => {
+                    filterData(false);
+                  }}
+                  class="btn btn-outline-warning m-2"
+                >
+                  GET PENDING
+                </button>
+              </div>
+
               <Add createFunc={postNewTodo} />
-              {mapOverTasks}
+              <div class="list-group">{mapOverTasks}</div>
             </div>
           }
         />
