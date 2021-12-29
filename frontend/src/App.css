@@ -1,14 +1,19 @@
-.App{
+.App {
   border: red solid 5px;
 }
 
-.Todo, .Login{
+.Todo {
   border: blue solid 3px;
 }
-.Todo span{
+.Todo span {
   margin: 0px 10px 0px 10px;
 }
 
-.Add, .Register{
+.Add,
+.Register {
   border: green solid 3px;
+}
+
+.Login form {
+  max-width: 75%;
 }

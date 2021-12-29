@@ -167,7 +167,7 @@ app.post("/users/login", (req, res) => {
         } else {
           // password incorrect
           res.status(400).json({
-            message: "Wrong password",
+            message: "Wrong Password",
           });
         }
       } else {
